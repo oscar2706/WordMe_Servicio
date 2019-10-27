@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Palabra
+Route::get('palabras', 'PalabraController@index');
+Route::get('palabras/{palabra}', 'PalabraController@show');
+Route::post('palabras', 'PalabraController@store');
+Route::delete('palabras/{palabra}', 'PalabraController@delete');
