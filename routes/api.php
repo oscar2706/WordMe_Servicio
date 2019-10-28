@@ -11,8 +11,13 @@
 |
 */
 
-// Palabra
+// Palabras
 Route::get('palabras', 'PalabraController@index');
 Route::get('palabras/{palabra}', 'PalabraController@show');
 Route::post('palabras', 'PalabraController@store');
 Route::delete('palabras/{palabra}', 'PalabraController@delete');
+
+// Usuarios
+Route::get('usuarios', 'UsuarioController@index');
+Route::get('usuarios/{email}', 'UsuarioController@login');
+Route::post('usuarios', 'UsuarioController@store');
