@@ -11,6 +11,8 @@ class Palabra extends Model
         'nombre'
     ];
 
+    protected $with = ['definicions'];
+
     public function definicions()
     {
         return $this->hasMany('App\Definicion');

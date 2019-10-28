@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Palabra;
+use App\Definicion;
 
 class PalabraController extends Controller
 {
@@ -19,9 +20,20 @@ class PalabraController extends Controller
 
     public function store(Request $request)
     {
-        $palabra = Palabra::create($request->all());
+        $palabra = Palabra::create([
+            'nombre' => $request->input('nombre')
+        ]);
+        $definiciones = json_decode($request->input('definiciones'));
+        foreach($definiciones as $definicion){
+            Definicion::create([
+                'tipo' => $definicion->tipo,
+                'definicion' => $definicion->definicion,
+                'palabra_id' => $palabra->id,
+            ]);
+        }
 
         return response()->json($palabra, 201);
+        // return response()->json($request->input('definiciones'), 201);
     }
 
     public function delete(Palabra $palabra)
