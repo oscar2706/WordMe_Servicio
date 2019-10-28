@@ -33,7 +33,6 @@ class PalabraController extends Controller
         }
 
         return response()->json($palabra, 201);
-        // return response()->json($request->input('definiciones'), 201);
     }
 
     public function delete(Palabra $palabra)
