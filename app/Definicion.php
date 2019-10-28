@@ -12,6 +12,7 @@ class Definicion extends Model
         'definicion',
         'palabra_id'
     ];
+
     public function palabra()
     {
         return $this->belongsTo('App\Palabra');

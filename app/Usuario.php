@@ -14,4 +14,9 @@ class Usuario extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function listas()
+    {
+        return $this->hasMany('App\Lista');
+    }
 }
