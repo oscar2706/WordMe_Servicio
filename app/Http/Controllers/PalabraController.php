@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Palabra;
 use App\Definicion;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PalabraController extends Controller
 {
@@ -13,9 +15,13 @@ class PalabraController extends Controller
         return Palabra::all();
     }
 
-    public function show(Palabra $palabra)
+    public function show($palabra)
     {
-        return $palabra;
+        $palabraBuscada = Palabra::where('nombre', '=', $palabra)->first();
+        if(is_object($palabraBuscada))
+            return $palabraBuscada;
+        else
+            return response()->json(null, 404);
     }
 
     public function store(Request $request)
