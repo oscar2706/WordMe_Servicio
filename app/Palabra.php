@@ -17,4 +17,9 @@ class Palabra extends Model
     {
         return $this->hasMany('App\Definicion');
     }
+
+    public function listas()
+    {
+        return $this->belongsToMany('App\Lista');
+    }
 }

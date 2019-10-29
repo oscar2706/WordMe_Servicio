@@ -27,4 +27,5 @@ Route::get('listas', 'ListaController@index');
 Route::get('listas/{lista}', 'ListaController@show');
 Route::get('usuarios/{usuario}/listas', 'ListaController@fromUser');
 Route::post('listas', 'ListaController@store');
+Route::post('listas/{lista}/{palabra}', 'ListaController@storeListaPalabra');
 Route::delete('listas/{lista}', 'ListaController@delete');

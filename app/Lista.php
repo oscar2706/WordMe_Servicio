@@ -12,8 +12,15 @@ class Lista extends Model
         'usuario_id'
     ];
 
+    protected $with = ['palabras'];
+
     public function usuario()
     {
         return $this->belongsTo('App\Usuario');
+    }
+
+    public function palabras()
+    {
+        return$this->belongsToMany('App\Palabra');
     }
 }

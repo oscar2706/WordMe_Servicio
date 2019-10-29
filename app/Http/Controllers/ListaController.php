@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Lista;
-use App\Usuario;
+use App\Palabra;
 
 class ListaController extends Controller
 {
@@ -21,6 +22,17 @@ class ListaController extends Controller
     public function store(Request $request)
     {
         return Lista::create($request->all());
+    }
+
+    public function storeListaPalabra(Lista $lista, Palabra $palabra)
+    {
+        if(DB::table('lista_palabra')->insert([
+            'lista_id' => $lista->id,
+            'palabra_id' =>  $palabra->id
+        ]))
+            return response()->json(null, 204);
+        else
+            return response()->json(null, 404);
     }
 
     public function delete(Lista $lista)
