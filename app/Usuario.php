@@ -19,4 +19,9 @@ class Usuario extends Model
     {
         return $this->hasMany('App\Lista');
     }
+
+    public function palabras()
+    {
+        return $this->belongsToMany('App\Palabra');
+    }
 }

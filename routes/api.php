@@ -21,6 +21,7 @@ Route::delete('palabras/{palabra}', 'PalabraController@delete');
 Route::get('usuarios', 'UsuarioController@index');
 Route::get('usuarios/{email}', 'UsuarioController@login');
 Route::post('usuarios', 'UsuarioController@store');
+Route::put('usuarios/{usuario}', 'UsuarioController@update');
 
 // Listas
 Route::get('listas', 'ListaController@index');

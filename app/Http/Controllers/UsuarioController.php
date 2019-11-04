@@ -18,6 +18,12 @@ class UsuarioController extends Controller
         return Usuario::create($request->all());
     }
 
+    public function update(Request $request, Usuario $usuario)
+    {
+        $usuario->update($request->all());
+        return response()->json($usuario, 200);
+    }
+
     public function login(Request $request, $email)
     {
         $usuario = Usuario::where([
@@ -27,6 +33,6 @@ class UsuarioController extends Controller
         if(is_object($usuario))
             return response()->json(true, 200);
         else
-            return response()->json(false, 404);
+            return response()->json(false, 200);
     }
 }

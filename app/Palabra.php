@@ -11,6 +11,7 @@ class Palabra extends Model
         'nombre'
     ];
 
+    protected $hidden = ['pivot'];
     protected $with = ['definicions'];
 
     public function definicions()
@@ -21,5 +22,10 @@ class Palabra extends Model
     public function listas()
     {
         return $this->belongsToMany('App\Lista');
+    }
+
+    public function usuarios()
+    {
+        return $this->belongsToMany('App\Usuario');
     }
 }
