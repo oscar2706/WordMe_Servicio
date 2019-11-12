@@ -26,19 +26,24 @@ class PalabraController extends Controller
 
     public function store(Request $request)
     {
-        $palabra = Palabra::create([
-            'nombre' => $request->input('nombre')
-        ]);
-        $definiciones = json_decode($request->input('definiciones'));
-        foreach($definiciones as $definicion){
-            Definicion::create([
-                'tipo' => $definicion->tipo,
-                'definicion' => $definicion->definicion,
-                'palabra_id' => $palabra->id,
-            ]);
-        }
+        if (Palabra::where('nombre', '=', $request->input('nombre'))->exists())
+            return response()->json(Palabra::where('nombre', '=', $request->input('nombre'))->first(), 201);
 
-        return response()->json($palabra, 201);
+        else {
+            $palabra = Palabra::create([
+                'nombre' => $request->input('nombre')
+            ]);
+            $definiciones = json_decode($request->input('definiciones'));
+            foreach($definiciones as $definicion){
+                Definicion::create([
+                    'tipo' => $definicion->tipo,
+                    'definicion' => $definicion->definicion,
+                    'palabra_id' => $palabra->id,
+                ]);
+            }
+
+            return response()->json($palabra, 201);
+        }
     }
 
     public function delete(Palabra $palabra)
