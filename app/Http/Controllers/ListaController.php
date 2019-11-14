@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Lista;
 use App\Palabra;
+use App\Usuario;
 
 class ListaController extends Controller
 {
@@ -21,7 +22,10 @@ class ListaController extends Controller
 
     public function store(Request $request)
     {
-        return Lista::create($request->all());
+        if( Usuario::where('id', '=', $request->get('usuario_id'))->exists())
+            return Lista::create($request->all());
+        else
+            return response()->json(null, 404);
     }
 
     public function storeListaPalabra(Lista $lista, Palabra $palabra)
@@ -31,6 +35,16 @@ class ListaController extends Controller
             'palabra_id' =>  $palabra->id
         ]))
             return response()->json(null, 204);
+        else
+            return response()->json(null, 404);
+    }
+
+    public function update(Request $request, Lista $lista)
+    {
+        if ($lista){
+            $lista->update($request->all());
+            return response()->json($lista, 200);
+        }
         else
             return response()->json(null, 404);
     }
