@@ -49,8 +49,27 @@ class ListaController extends Controller
             return response()->json(null, 404);
     }
 
+    public function duplicate(Lista $lista)
+    {
+        $nombre = $lista->nombre;
+        $nombre = $nombre . '_copia';
+
+        $lista_duplicada = Lista::create([
+            'nombre' => $nombre,
+            'usuario_id'=> $lista->usuario_id
+        ]);
+        foreach ($lista->palabras as $palabra) {
+            DB::table('lista_palabra')->insert([
+                'lista_id' => $lista_duplicada->id,
+                'palabra_id' =>  $palabra->id
+            ]);
+        }
+        return response()->json($lista_duplicada, 200);
+    }
+
     public function delete(Lista $lista)
     {
+        DB::table('lista_palabra')->where('lista_id', '=', $lista->id)->delete();
         $lista->delete();
         return response()->json(null, 204);
     }
