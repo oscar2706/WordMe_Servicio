@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Usuario;
 
@@ -34,5 +35,15 @@ class UsuarioController extends Controller
             return response()->json(true, 200);
         else
             return response()->json(false, 200);
+    }
+
+    public function idUsuario(Request $request)
+    {
+        $id = DB::table('usuarios')->select('id')->where([
+            ['email', '=', $request->input('email')],
+            ['password', '=', $request->input('password')]
+        ])->get();
+
+        return $id;
     }
 }
