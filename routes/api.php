@@ -18,10 +18,9 @@ Route::post('palabras', 'PalabraController@store');
 Route::delete('palabras/{palabra}', 'PalabraController@delete');
 
 // Usuarios
-Route::get('usuarios', 'UsuarioController@index');
+//Route::get('usuarios', 'UsuarioController@index');
+Route::get('usuarios', 'UsuarioController@login');
 Route::get('usuarios/{usuario}', 'UsuarioController@show');
-Route::get('usuarios/{email}', 'UsuarioController@login');
-Route::get('usuarios/', 'UsuarioController@idUsuario');
 Route::post('usuarios', 'UsuarioController@store');
 Route::put('usuarios/{usuario}', 'UsuarioController@update');
 

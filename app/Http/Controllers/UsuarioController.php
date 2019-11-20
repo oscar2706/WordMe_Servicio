@@ -30,25 +30,15 @@ class UsuarioController extends Controller
         return response()->json($usuario, 200);
     }
 
-    public function login(Request $request, $email)
+    public function login(Request $request)
     {
         $usuario = Usuario::where([
-            ['email', '=', $email],
+            ['email', '=', $request->input(('email'))],
             ['password', '=', $request->input('password')]
             ])->first();
         if(is_object($usuario))
-            return response()->json(true, 200);
+            return response()->json($usuario->id, 200);
         else
-            return response()->json(false, 200);
-    }
-
-    public function idUsuario(Request $request)
-    {
-        $id = DB::table('usuarios')->select('id')->where([
-            ['email', '=', $request->input('email')],
-            ['password', '=', $request->input('password')]
-        ])->get();
-
-        return $id;
+            return response()->json(null, 404);
     }
 }
