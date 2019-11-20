@@ -19,6 +19,7 @@ Route::delete('palabras/{palabra}', 'PalabraController@delete');
 
 // Usuarios
 Route::get('usuarios', 'UsuarioController@index');
+Route::get('usuarios/{usuario}', 'UsuarioController@show');
 Route::get('usuarios/{email}', 'UsuarioController@login');
 Route::get('usuarios/', 'UsuarioController@idUsuario');
 Route::post('usuarios', 'UsuarioController@store');
