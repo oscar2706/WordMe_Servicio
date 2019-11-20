@@ -78,4 +78,42 @@ class ListaController extends Controller
         return Lista::where('usuario_id', '=', $usuario)->get();
     }
 
+    public function moveListaPalabra(Request $request, Lista $lista, Palabra $palabra)
+    {
+        if (DB::table('lista_palabra')->insert([
+            'lista_id' => $request->get('lista_id'),
+            'palabra_id' =>  $palabra->id
+        ])) {
+            DB::table('lista_palabra')->where([
+                ['lista_id', '=', $lista->id],
+                ['palabra_id', '=', $palabra->id]
+            ])->delete();
+            return response()->json(true, 204);
+        }
+        else
+            return response()->json(null, 404);
+    }
+
+    public function copyListaPalabra(Request $request, Lista $lista, Palabra $palabra)
+    {
+        if (DB::table('lista_palabra')->insert([
+            'lista_id' => $request->get('lista_id'),
+            'palabra_id' =>  $palabra->id
+        ]))
+            return response()->json(true, 204);
+        else
+            return response()->json(null, 404);
+    }
+
+    public function deleteListaPalabra(Lista $lista, Palabra $palabra)
+    {
+        if(DB::table('lista_palabra')->where([
+            ['lista_id', '=', $lista->id],
+            ['palabra_id', '=', $palabra->id]
+        ])->delete())
+            return response()->json(true, 204);
+        else
+            return response()->json(null, 404);
+    }
+
 }
