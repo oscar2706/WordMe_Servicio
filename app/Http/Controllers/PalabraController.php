@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Palabra;
 use App\Definicion;
+use App\Usuario;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PalabraController extends Controller
@@ -44,6 +45,29 @@ class PalabraController extends Controller
 
             return response()->json($palabra, 201);
         }
+    }
+
+    public function userHistory(Usuario $usuario)
+    {
+        return Palabra::join('palabra_usuario', 'palabras.id', '=', 'palabra_usuario.palabra_id')
+            ->where('palabra_usuario.usuario_id','=', $usuario->id)
+            ->orderBy('fecha', 'asc')
+            ->get();
+    }
+
+    public function storeHistory(Usuario $usuario, Palabra $palabra)
+    {
+        if(DB::table('palabra_usuario')->insert([
+            'usuario_id' => $usuario->id,
+            'palabra_id' =>  $palabra->id,
+            'fecha' => date("Y-m-d")
+        ]))
+            return DB::table('palabra_usuario')
+                ->where('usuario_id','=', $usuario->id)
+                ->orderBy('fecha', 'asc')
+                ->get();
+        else
+            return response()->json(null, 404);
     }
 
     public function delete(Palabra $palabra)

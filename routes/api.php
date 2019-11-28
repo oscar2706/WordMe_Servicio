@@ -24,6 +24,10 @@ Route::get('usuarios/{usuario}', 'UsuarioController@show');
 Route::post('usuarios', 'UsuarioController@store');
 Route::put('usuarios/{usuario}', 'UsuarioController@update');
 
+// Historial
+Route::post('historial/{usuario}/{palabra}', 'PalabraController@storeHistory');
+Route::get('historial/{usuario}', 'PalabraController@userhistory');
+
 // Listas
 Route::get('listas', 'ListaController@index');
 Route::get('listas/{lista}', 'ListaController@show');
